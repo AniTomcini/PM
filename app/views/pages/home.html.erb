@@ -1,0 +1,63 @@
+<div class="container" id="home-container">
+  <div class="p-5 mb-5 bg-body-tertiary jumbotron rounded-3 text-center text-white">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Playlist Management</h1>
+      <p class="col-md-12 fs-4 ">Please choose to listen or wach media through playlists in diferent devices.</p>
+      <%= link_to "Sign up!", signup_path, class: "btn btn-primary btn-lg px-4 rounded-pill" %>
+    </div>
+  </div>
+
+  <main>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-dark">
+          <div class="card-header py-3 text-bg-dark border-dark">
+            <h4 class="my-0 fw-normal">Media</h4>
+          </div>
+          <div class="card-body">
+            <h2 class="card-title pricing-card-title">Media Management</h2>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>You must be logged</li>
+              <li>in order to add</li>
+              <li>or edit a media</li>
+            </ul>
+            <%= link_to "View Media", videos_path, class: "w-100 btn btn-lg btn-dark" %>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-dark">
+          <div class="card-header py-3 text-bg-dark border-dark">
+            <h4 class="my-0 fw-normal">Playlists</h4>
+          </div>
+          <div class="card-body">
+            <h2 class="card-title pricing-card-title">Playlists Management</h2>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>You must be logged</li>
+              <li>in order to add</li>
+              <li>or edit a playlist</li>
+            </ul>
+            <%= link_to "View Paylists", playlists_path, class: "w-100 btn btn-lg btn-dark" %>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-dark">
+          <div class="card-header py-3 text-bg-dark border-dark">
+            <h4 class="my-0 fw-normal">Devices</h4>
+          </div>
+          <div class="card-body">
+            <h2 class="card-title pricing-card-title">Devices Management</h2>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>You must be logged</li>
+              <li>in order to add</li>
+              <li>or edit a device</li>
+            </ul>
+            <%= link_to "View Devices", devices_path, class: "w-100 btn btn-lg btn-dark" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</div>

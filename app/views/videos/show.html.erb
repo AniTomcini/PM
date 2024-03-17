@@ -1,0 +1,19 @@
+<h1 class="text-center my-4">Showing Media</h1>
+<div class="container mb-5">
+  <div class="card mb-3">
+    <%= get_video_iframe @video.link, '100%', '400px' %>
+    <div class="card-body text-center">
+      <h5 class="card-title"><%= @video.title %></h5>
+      <p class="card-text"><%= @video.description %></p>
+      <p class="card-text">by <span class="text-info fst-italic"><%= link_to @video.user.username, user_path(@video.user) %></span> | <span class="text-primary">Belongs to <%= link_to @video.playlist.title, playlist_path(@video.playlist) %> playlist<span></p>
+      <% if logged_in? && (@video.user == current_user || current_user.admin?) %>
+        <%= link_to 'Edit', edit_video_path(@video), class: "btn btn-outline-info" %>
+        <%= link_to 'Delete', video_path(@video), data: { "turbo_method": :delete, "turbo_confirm": "Are you sure?" }, class: "btn btn-outline-danger" %>
+      <% end %>
+    </div>
+    <div class="card-footer text-center">
+      <small class="text-body-secondary">Created <%= time_ago_in_words(@video.created_at) %> ago, 
+      Edited <%= time_ago_in_words(@video.updated_at) %> ago</small>
+    </div>
+  </div>
+</div>

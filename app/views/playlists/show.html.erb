@@ -1,0 +1,40 @@
+<h1 class="text-center my-5">Showing <%= @playlist.title %></h1>
+
+<div class="container" style="width: 60rem;">
+  <div class="card text-center mx-lg-4">
+    <div class="card-header">
+      Created by <%= @playlist.user.username %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= @playlist.title %></h5>
+      <p class="card-text"><%= simple_format(@playlist.description) %></p>
+      <% if logged_in? && (@playlist.user == current_user || current_user.admin?) %>
+        <%= link_to 'Edit', edit_playlist_path(@playlist), class: "btn btn-outline-info me-md-2" %>
+        <%= link_to 'Delete', playlist_path(@playlist), data: { "turbo_method": :delete, "turbo_confirm": "Are you sure?" }, class: "btn btn-outline-danger" %>
+      <% end %>
+    </div>
+    <p>
+        <small>Created <%= time_ago_in_words(@playlist.created_at) %> ago,
+        edited <%= time_ago_in_words(@playlist.updated_at) %> ago
+        </small>
+      </p>
+    <div class="card-footer text-body-secondary">
+      <h5 class="mt-3">List of Media</h5>
+      <ol class="list-group list-group-numbered mb-2">
+        <% @playlist.videos.each do |video| %>
+          <li class="list-group-item d-flex mx-100% justify-content-center">
+            <a href="<%= video_path(video) %>">
+            <div class="ms-2">
+              <div class="fw-bold"><%= video.title %></div>
+              <%= truncate(video.description, length: 60) %>
+            </div>
+            </a>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>
+<p class="text-center mt-4">
+  <%= link_to 'Return to playlist listing', playlists_path %>
+</p>

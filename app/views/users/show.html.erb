@@ -1,0 +1,88 @@
+<h1 class="text-center my-5">Showing <%= @user.username %></h1>
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      Created by <%= @user.username %>
+    </div>
+    <div class="card-body mb-3">
+      <h5 class="card-title"><%= @user.username %></h5>
+      <p class="card-text"><%= @user.email %></p>
+      <% if logged_in? %>
+        <% if @user == current_user %>
+          <%= link_to 'Edit your profile', edit_user_path(@user), class: "btn btn-outline-info me-md-2" %>
+        <% end %>
+        <% if current_user.admin? %>
+          <%= link_to 'Delete', user_path(@user), data: { "turbo_method": :delete, "turbo_confirm": "Are you sure?" }, class: "btn btn-outline-danger" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mx-2">
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to "List of media", videos_path, class: "text-success" %></h5>
+            <ol class="list-group mb-2">
+              <% @user.videos.each do |video| %>
+                <li class="list-group-item d-flex mx-100% justify-content-center">
+                  <a href="<%= video_path(video) %>">
+                  <div class="ms-2">
+                    <div class="fw-bold"><%= video.title %></div>
+                    <%= truncate(video.description, length: 60) %>
+                  </div>
+                  </a>
+                </li>
+              <% end %>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to "List of playlists", playlists_path, class: "text-success" %></h5>
+            <ol class="list-group mb-2">
+              <% @user.playlists.each do |playlist| %>
+                <li class="list-group-item d-flex mx-100% justify-content-center">
+                  <a href="<%= playlist_path(playlist) %>">
+                  <div class="ms-2">
+                    <div class="fw-bold"><%= playlist.title %></div>
+                    <%= truncate(playlist.description, length: 60) %>
+                  </div>
+                  </a>
+                </li>
+              <% end %>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to "List of devices", devices_path, class: "text-success" %></h5>
+            <ol class="list-group mb-2">
+              <% @user.devices.each do |device| %>
+                <li class="list-group-item d-flex mx-100% justify-content-center">
+                  <a href="<%= device_path(device) %>">
+                  <div class="ms-2">
+                    <div class="fw-bold"><%= device.name %></div>
+                    <%= device.playlist.title %>
+                  </div>
+                  </a>
+                </li>
+              <% end %>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer text-body-secondary mt-3">
+      <br />
+    </div>
+  </div>
+</div>
+
+<p class="text-center mt-4">
+  <%= link_to 'Return to playlist listing', playlists_path %>
+</p>

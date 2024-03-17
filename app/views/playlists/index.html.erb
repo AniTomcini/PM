@@ -1,0 +1,27 @@
+<h1 class="text-center my-5">Playlists listing page</h1>
+<div class="flickr_pagination mb-3">
+  <%= will_paginate @playlists, :container => false %>
+</div>
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <% @playlists.each do |playlist| %>
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-body text-center">
+            <h5 class="card-title"><%= link_to playlist.title, playlist_path(playlist), class: "text-success" %></h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Created by <%= link_to playlist.user.username, user_path(playlist.user) %></h6>
+            <p class="card-text"><%= truncate(playlist.description, length: 80) %></p>
+            <%= link_to 'View', playlist_path(playlist), class: "btn btn-outline-success" %>
+            <% if logged_in? && (playlist.user == current_user || current_user.admin?) %>
+              <%= link_to 'Edit', edit_playlist_path(playlist), class: "btn btn-outline-info" %>
+              <%= link_to 'Delete', playlist_path(playlist), data: { "turbo_method": :delete, "turbo_confirm": "Are you sure?" }, class: "btn btn-outline-danger" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="flickr_pagination mt-3">
+  <%= will_paginate @playlists, :container => false %>
+</div>

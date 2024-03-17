@@ -1,0 +1,32 @@
+<h1 class="text-center my-5">All Media</h1>
+<div class="flickr_pagination mb-3">
+  <%= will_paginate @videos, :container => false %>
+</div>
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @videos.each do |video| %>
+      <div class="col">
+        <div class="card h-100 shadow">
+             <%= get_video_iframe video.link, '100%', '180px' %>
+          <div class="card-body text-center">
+            <h5 class="card-title"><%= link_to video.title, video_path(video), class: "text-success" %></h5>
+            <p class="card-text"><%= truncate(video.description, length: 60) %></p>
+            <p class="card-text">by <span class="text-info fst-italic"><%= link_to video.user.username, user_path(video.user) %></span> | <span class="text-primary">Belongs to <%= link_to video.playlist.title, playlist_path(video.playlist) %> playlist<span></p>
+            <%= link_to 'View', video_path(video), class: "btn btn-outline-success" %>
+            <% if logged_in? && (video.user == current_user || current_user.admin?) %>
+              <%= link_to 'Edit', edit_video_path(video), class: "btn btn-outline-info" %>
+              <%= link_to 'Delete', video_path(video), data: { "turbo_method": :delete, "turbo_confirm": "Are you sure?" }, class: "btn btn-outline-danger" %>
+            <% end %>
+          </div>
+          <div class="card-footer text-center">
+            <small class="text-body-secondary">Created <%= time_ago_in_words(video.created_at) %> ago, 
+            Edited <%= time_ago_in_words(video.updated_at) %> ago</small>
+          </div>
+        </div>
+      </div> 
+    <% end %>
+  </div>
+</div>
+<div class="flickr_pagination mt-3">
+  <%= will_paginate @videos, :container => false %>
+</div>

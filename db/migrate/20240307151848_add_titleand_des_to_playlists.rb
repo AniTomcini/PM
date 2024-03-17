@@ -1,0 +1,6 @@
+class AddTitleandDesToPlaylists < ActiveRecord::Migration[7.0]
+  def change
+    add_column :playlists, :title, :string
+    add_column :playlists, :description, :text
+  end
+end
