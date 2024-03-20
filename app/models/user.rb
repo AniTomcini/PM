@@ -12,4 +12,13 @@ class User < ApplicationRecord
                       length: { maximum: 105 },
                       format: { with: VALID_EMAIL_REGEX }
   has_secure_password
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "id", "username", "email", "updated_at"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["devices", "playlists", "videos"]
+  end
+
 end

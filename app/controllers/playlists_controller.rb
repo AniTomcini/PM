@@ -8,7 +8,8 @@ class PlaylistsController < ApplicationController
   end
 
   def index
-    @playlists = Playlist.paginate(page: params[:page], per_page: 4)
+    @q = Playlist.ransack(params[:q])
+    @playlists = @q.result(distinct: true).paginate(page: params[:page], per_page: 4)
   end
 
   def new
@@ -19,7 +20,7 @@ class PlaylistsController < ApplicationController
   end
 
   def create
-    @playlist = Playlist.new(params.require(:playlist).permit(:title, :description))
+    @playlist = Playlist.new(params.require(:playlist).permit(:title, :description, :media_file))
     @playlist.user = current_user
     if @playlist.save
       flash[:notice] = "Playlist was created successfully."
@@ -31,7 +32,7 @@ class PlaylistsController < ApplicationController
   end
 
   def update
-    if @playlist.update(params.require(:playlist).permit(:title, :description))
+    if @playlist.update(params.require(:playlist).permit(:title, :description, :media_file))
       flash[:notice] = "Playlist was updated successfully."
       redirect_to @playlist
     else

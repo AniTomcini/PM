@@ -7,6 +7,7 @@
     </div>
     <div class="card-body">
       <h5 class="card-title"><%= @playlist.title %></h5>
+      <%= render 'playlists/attachment' %>
       <p class="card-text"><%= simple_format(@playlist.description) %></p>
       <% if logged_in? && (@playlist.user == current_user || current_user.admin?) %>
         <%= link_to 'Edit', edit_playlist_path(@playlist), class: "btn btn-outline-info me-md-2" %>

@@ -1,4 +1,8 @@
 <h1 class="text-center my-5">Devices listing page</h1>
+<h3 class="text-center mb-4 my-2"><%= pluralize(@devices.count, "Result") %></h3>
+<div class="d-flex justify-content-center mx-auto">
+  <%= render 'devices/search_form' %>
+</div>
 <div class="flickr_pagination mb-3">
   <%= will_paginate @devices, :container => false %>
 </div>

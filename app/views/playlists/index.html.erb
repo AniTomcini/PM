@@ -1,4 +1,8 @@
 <h1 class="text-center my-5">Playlists listing page</h1>
+<h3 class="text-center mb-4 my-2"><%= pluralize(@playlists.count, "Result") %></h3>
+<div class="d-flex justify-content-center mx-auto">
+  <%= render 'playlists/search_form' %>
+</div>
 <div class="flickr_pagination mb-3">
   <%= will_paginate @playlists, :container => false %>
 </div>
@@ -9,7 +13,16 @@
         <div class="card shadow">
           <div class="card-body text-center">
             <h5 class="card-title"><%= link_to playlist.title, playlist_path(playlist), class: "text-success" %></h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Created by <%= link_to playlist.user.username, user_path(playlist.user) %></h6>
+            <% if playlist.media_file.attached? %>
+                <% if playlist.media_file.image? %>
+                    <%= image_tag(playlist.media_file, class: "rounded") %>
+                <% else %>
+                    <div class="alert alert-danger" role="alert">
+                      The image is not the right format!
+                    </div>
+                <% end %>
+            <% end %>
+            <h6 class="card-subtitle mb-2 text-body-secondary mt-2">Created by <%= link_to playlist.user.username, user_path(playlist.user) %></h6>
             <p class="card-text"><%= truncate(playlist.description, length: 80) %></p>
             <%= link_to 'View', playlist_path(playlist), class: "btn btn-outline-success" %>
             <% if logged_in? && (playlist.user == current_user || current_user.admin?) %>

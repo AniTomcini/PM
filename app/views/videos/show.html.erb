@@ -1,7 +1,7 @@
 <h1 class="text-center my-4">Showing Media</h1>
 <div class="container mb-5">
   <div class="card mb-3">
-    <%= get_video_iframe @video.link, '100%', '400px' %>
+    <%= render 'videos/attachment' %>
     <div class="card-body text-center">
       <h5 class="card-title"><%= @video.title %></h5>
       <p class="card-text"><%= @video.description %></p>

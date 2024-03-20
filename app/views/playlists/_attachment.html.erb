@@ -1,0 +1,15 @@
+<% if @playlist.media_file.attached? %>
+  <div class="row">
+    <% if @playlist.media_file.image? %>
+      <div class="text-center">
+        <%= image_tag(@playlist.media_file, class: "rounded") %>
+      <div>
+    <% else %>
+      <div class="text-center">
+        <div class="alert alert-danger" role="alert">
+          The image is not the right format!
+        </div>
+      <div>
+    <% end %>
+  </div>
+<% end %>

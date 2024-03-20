@@ -1,5 +1,9 @@
-<h1 class="text-center my-5">All Media</h1>
-<div class="flickr_pagination mb-3">
+<h1 class="text-center mt-5">All Media</h1>
+<h3 class="text-center mb-4 my-2"><%= pluralize(@videos.count, "Result") %></h3>
+<div class="d-flex justify-content-center mx-auto">
+  <%= render 'videos/search_form' %>
+</div>
+<div class="flickr_pagination my-3">  
   <%= will_paginate @videos, :container => false %>
 </div>
 <div class="container">
@@ -7,7 +11,6 @@
     <% @videos.each do |video| %>
       <div class="col">
         <div class="card h-100 shadow">
-             <%= get_video_iframe video.link, '100%', '180px' %>
           <div class="card-body text-center">
             <h5 class="card-title"><%= link_to video.title, video_path(video), class: "text-success" %></h5>
             <p class="card-text"><%= truncate(video.description, length: 60) %></p>

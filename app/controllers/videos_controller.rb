@@ -8,7 +8,8 @@ class VideosController < ApplicationController
   end
 
   def index
-    @videos = Video.paginate(page: params[:page], per_page: 3)
+    @q = Video.ransack(params[:q])
+    @videos = @q.result(distinct: true).paginate(page: params[:page], per_page: 3)
   end
 
   def new
@@ -51,7 +52,7 @@ class VideosController < ApplicationController
   end
 
   def video_params
-    params.require(:video).permit(:title, :description, :link, :playlist_id)
+    params.require(:video).permit(:title, :description, :link, :media_file, :playlist_id)
   end
 
   def require_same_user

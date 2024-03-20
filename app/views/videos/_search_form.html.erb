@@ -1,0 +1,13 @@
+<div class="text-center">
+  <ul class="d-flex text-center list-unstyled">
+    <li class="mx-1"><%= sort_link(@q, :title, "Title", default_order: :asc, class: 'btn btn-primary mx-1 px-4') %></li>
+    <li class="mx-1"><%= sort_link(@q, :created_at, "Date created", default_order: :desc, class: 'btn btn-primary mx-1 px-4') %></li>
+    <li class="mx-1"><%= sort_link(@q, :updated_at, "Date updated", default_order: :desc, class: 'btn btn-primary mx-1 px-4') %></li>
+  </ul>
+</div>
+<div class="text-center">
+  <%= search_form_for @q, class: "d-flex", url: videos_path, method: :get do |f| %>
+    <%= f.search_field :title_or_description_cont, class: "form-control mx-1 rounded", placeholder: "Search" %>
+    <%= f.submit "Search", class: "btn btn-primary d-flex" %>
+  <% end %>
+</div>

@@ -8,7 +8,8 @@ class DevicesController < ApplicationController
   end
 
   def index
-    @devices = Device.paginate(page: params[:page], per_page: 2)
+    @q = Device.ransack(params[:q])
+    @devices = @q.result(distinct: true).paginate(page: params[:page], per_page: 2)
   end
 
   def new
